@@ -25,7 +25,7 @@ function parseElementChildren(children, fieldName) {
 }
 
 function parseFields(element, elementName, fieldName) {
-  const { type, children, description } = element;
+  const { type, children, description, valids } = element;
   fieldName = fieldName ? `${fieldName}[${elementName}]` : elementName;
 
   if (type === 'object') {
@@ -40,6 +40,11 @@ function parseFields(element, elementName, fieldName) {
 
     if (description) {
       field.title = description;
+    }
+
+    if (valids && valids.length === 1) {
+      const value = valids.pop();
+      field.value = value;
     }
 
     return [field];

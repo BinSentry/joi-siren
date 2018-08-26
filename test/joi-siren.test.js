@@ -9,7 +9,7 @@ describe('joi-siren', function () {
       single: Joi.string(),
     };
 
-    const fields = schemaToFields(schema);console.log(fields);
+    const fields = schemaToFields(schema);
     expect(fields).to.be.an('array');
     expect(fields).to.have.length(1);
     expect(fields[0]).to.deep.equal({ name: 'single', type: 'text' });
@@ -97,7 +97,7 @@ describe('joi-siren', function () {
       },
     };
 
-    const fields = schemaToFields(schema);console.log(fields);
+    const fields = schemaToFields(schema);
     expect(fields).to.be.an('array');
     expect(fields).to.have.length(3);
     expect(fields[0]).to.deep.equal({ name: 'outer[inner]', type: 'text' });
@@ -114,6 +114,19 @@ describe('joi-siren', function () {
     expect(fields).to.be.an('array');
     expect(fields).to.have.length(1);
     expect(fields[0]).to.deep.equal({ name: 'singleDesc', type: 'text', title: 'simple description' });
+  });
+
+  it('converts a field with an exact value', async () => {
+    const schema = {
+      outer: {
+        inner: 'this is the only value',
+      },
+    };
+
+    const fields = schemaToFields(schema);
+    expect(fields).to.be.an('array');
+    expect(fields).to.have.length(1);
+    expect(fields[0]).to.deep.equal({ name: 'outer[inner]', type: 'text', value: 'this is the only value' });
   });
 
   it('errors if root of schema is not an object', async () => {

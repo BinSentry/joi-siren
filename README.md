@@ -54,3 +54,16 @@ const fields = schemaToFields(schema);
 //    { name: 'outer[layer2_2][reallyInner]', type: 'checkbox' }
 //  ]
 ```
+
+#### Exact values
+
+```
+const schema = {
+  outer: {
+    inner: 'this is the only value',
+  },
+};
+
+const fields = schemaToFields(schema);
+//  [ { name: 'outer[inner]', type: 'text', value: 'this is the only value' } ]
+```
